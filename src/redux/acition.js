@@ -31,3 +31,15 @@ export const act_delete_user = (id) => {
         payload: id
     }
 }
+export const act_search_user = (searchData) => {
+    return {
+        type: actionTypes.USER_SEARCH,
+        payload: searchData
+    }
+}
+export const act_sort_user = (userData, typeSort) => {
+    return {
+        type: actionTypes.USER_SORT,
+        payload: { userData, typeSort }
+    }
+}

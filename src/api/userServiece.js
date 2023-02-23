@@ -15,3 +15,12 @@ export const USER_PATCH_SERVICE = async (updateUser) => {
 export const USER_DELETE_SERVICE = async (id) => {
     await instances.delete("users/" + id);
 }
+export const USER_SEARCH_SERVICE = async (searchData) => {
+    let response = await instances.get("users?fullName_like=" + searchData);
+    return response.data;
+}
+export const USER_SORT_SERVICE = async (userData) => {
+    let response = await instances.get(`users?_sort=${userData.userData}&_order=${userData.typeSort}`);
+    // console.log('User service response data: ', response.data);
+    return response.data;
+}

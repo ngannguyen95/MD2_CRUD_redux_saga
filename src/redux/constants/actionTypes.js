@@ -5,3 +5,5 @@ export const USER_SUCCESS = "GET_USER_SUCCESS";
 export const USER_POST = "POST_USER";
 export const USER_PATCH = "PATCH_USER"
 export const USER_DELETE = "DELETE_USER"
+export const USER_SEARCH = "SEARCH_USER"
+export const USER_SORT = "SORT_USER"

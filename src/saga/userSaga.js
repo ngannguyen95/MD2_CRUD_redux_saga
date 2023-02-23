@@ -1,19 +1,30 @@
 import * as userServiece from "../api/userServiece";
 import { call, put } from 'redux-saga/effects';
 import { act_user_succsess } from "../redux/acition";
-import { USER_SUCCESS } from "../redux/constants/actionTypes";
+import * as actionTypes from "../redux/constants/actionTypes";
 
 //6. các saga kết nối và làm việc service
-export const USER_SAGA_GET = function* () {
+export const USER_SAGA_GET = function* (action) {
+    console.log('action trog user saga', action);
     try {
-        // call(functionName, argument of function)
-        let ListUser = yield call(userServiece.USER_GET_SERVICE)
-
-        // success --> gọi action --> put(action)
-        yield put(act_user_succsess(USER_SUCCESS, ListUser));
-
+        let ListUser;
+        switch (action.type) {
+            case actionTypes.USER_SEARCH:
+                // call(functionName, argument of function)
+                ListUser = yield call(userServiece.USER_SEARCH_SERVICE, action.payload)
+                break;
+            // success --> gọi action --> put(action)
+            case actionTypes.USER_SORT:
+                ListUser = yield call(userServiece.USER_SORT_SERVICE, action.payload)
+                // console.log('action play usersaga: ', action.payload);
+                // console.log('Dữ liệu trong UserSaga: ', ListUser);
+                break;
+            default:
+                ListUser = yield call(userServiece.USER_GET_SERVICE)
+        }
+        yield put(act_user_succsess(actionTypes.USER_SUCCESS, ListUser));
     } catch (error) {
-        console.log("error==>", error);
+        console.log("Lôix bắn ra từ userSaga ==>", error);
     }
 }
 export const USER_SAGA_POST = function* (action) {
